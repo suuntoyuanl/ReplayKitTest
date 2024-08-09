@@ -14,6 +14,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        AMapServices.shared().apiKey = "a2ded679159dc4db326bc05beae8dd1d"
+        MAMapView.updatePrivacyShow(AMapPrivacyShowStatus.didShow, privacyInfo: .didContain)
+        MAMapView.updatePrivacyAgree(.didAgree)
         return true
     }
 
