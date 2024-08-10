@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2EB385DA8466111F2B1C56FC /* Pods_ReplayKitTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C7FDAE0CEE21BE1CADD34B /* Pods_ReplayKitTest.framework */; };
+		797995612C6706F200B527B2 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797995602C6706F200B527B2 /* AudioPlayer.swift */; };
+		797995632C671D1600B527B2 /* GPSData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797995622C671D1500B527B2 /* GPSData.swift */; };
 		79E25C232C65FF650077D3C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E25C222C65FF650077D3C2 /* AppDelegate.swift */; };
 		79E25C252C65FF650077D3C2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E25C242C65FF650077D3C2 /* SceneDelegate.swift */; };
 		79E25C272C65FF650077D3C2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E25C262C65FF650077D3C2 /* ViewController.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		797995602C6706F200B527B2 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
+		797995622C671D1500B527B2 /* GPSData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPSData.swift; sourceTree = "<group>"; };
 		79E25C1F2C65FF650077D3C2 /* ReplayKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ReplayKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79E25C222C65FF650077D3C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79E25C242C65FF650077D3C2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 				79E25C2D2C65FF660077D3C2 /* LaunchScreen.storyboard */,
 				79E25C302C65FF660077D3C2 /* Info.plist */,
 				79E25C362C65FF7A0077D3C2 /* ScreenRecorder.swift */,
+				797995602C6706F200B527B2 /* AudioPlayer.swift */,
+				797995622C671D1500B527B2 /* GPSData.swift */,
 			);
 			path = ReplayKitTest;
 			sourceTree = "<group>";
@@ -212,8 +218,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				797995632C671D1600B527B2 /* GPSData.swift in Sources */,
 				79E25C272C65FF650077D3C2 /* ViewController.swift in Sources */,
 				79E25C372C65FF7A0077D3C2 /* ScreenRecorder.swift in Sources */,
+				797995612C6706F200B527B2 /* AudioPlayer.swift in Sources */,
 				79E25C232C65FF650077D3C2 /* AppDelegate.swift in Sources */,
 				79E25C252C65FF650077D3C2 /* SceneDelegate.swift in Sources */,
 			);
