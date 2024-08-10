@@ -24,7 +24,6 @@ class ViewController: UIViewController {
     var sumDistance: Double = 0.0
     
     weak var car1View: MAAnnotationView?
-    private var timer: Timer!
     
     var btn: UIButton!
     var isPlay = false
@@ -46,6 +45,9 @@ class ViewController: UIViewController {
 //        playAudio()
         recorder.statusUpdate = { status in
             print("状态变化: \(status)")
+            if status == "录制已开始。" {
+                self.startMove()
+            }
         }
         
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -64,22 +66,18 @@ class ViewController: UIViewController {
         }
     }
     
-    private func startTimer() {
-        timer = Timer(timeInterval: 1, repeats: true, block: { time in
-            self.btn.setTitle("调试\(Date().timeIntervalSince1970)", for: .normal)
-        })
-        timer.fire()
+    private func startMove() {
+        mapView.setZoomLevel(15.3, animated: true)
+        mov()
+        playAudio()
+        isPlay = !isPlay
     }
     
     @objc private func debug() {
         if !isPlay {
-            mov()
-            playAudio()
-            startTimer()
-            
             recorder.startRecording(withFileName: "\(Date().timeIntervalSince1970).mp4")
         } else {
-            timer.invalidate()
+            isPlay = !isPlay
             AudioPlayer.shared.stop()
             recorder.stopRecording { videoURL in
                 if let videoURL = videoURL {
@@ -100,7 +98,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-        isPlay = !isPlay
         print("")
         
     }
@@ -274,7 +271,6 @@ extension ViewController: MAMapViewDelegate {
                 annotationView?.image = UIImage(named: "trackingPoints")
             }
             
-//            self.car1View?.superview?.bringSubview(toFront: self.car1View!)
             self.car1View?.superview?.bringSubviewToFront(self.car1View!)
             return annotationView
         }
@@ -290,7 +286,7 @@ extension ViewController: MAMapViewDelegate {
 //        } else
         if (overlay as! MAPolyline == self.passedTraceLine) {
             let polylineView = MAPolylineRenderer(polyline: overlay as? MAPolyline)
-            polylineView?.lineWidth = 14.0
+            polylineView?.lineWidth = 9.0
             polylineView?.strokeColor = UIColor.blue
             return polylineView
         }
