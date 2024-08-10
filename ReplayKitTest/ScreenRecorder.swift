@@ -176,8 +176,8 @@ class ScreenRecorder {
         audioMix.inputParameters = [audioMixInputParams]
         
         // Exporting the composition
-        let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHighestQuality)
-        exportSession?.audioMix = audioMix  // Set the audio mix
+        let exportSession = AVAssetExportSession(asset: composition, presetName: AVAssetExportPresetHEVCHighestQuality)
+        exportSession?.audioMix = audioMix
         let exportURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(Date().timeIntervalSince1970).mp4")
         exportSession?.outputURL = exportURL
         exportSession?.outputFileType = .mp4
