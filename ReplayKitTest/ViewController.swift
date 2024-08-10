@@ -193,6 +193,7 @@ extension ViewController {
                 let a = MAPointAnnotation()
                 a.coordinate = s_coords[i]
                 a.title = "route"
+                
                 routeAnno.append(a)
             }
         }
