@@ -28,6 +28,7 @@ class ScreenRecorder {
                 assetWriter!.add(videoInput!)
             }
         } catch {
+            // rebase test
             statusUpdate?("设置视频写入器失败: \(error)")
             return false
         }
