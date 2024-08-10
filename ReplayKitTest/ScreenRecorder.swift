@@ -14,6 +14,9 @@ class ScreenRecorder {
     private var isRecording = false
     private var sessionStarted = false
     
+    /// 没有实际意义，就算是不给 buffer 写内容，录制还是不会停下来
+    private var isPaused = false
+    
     var statusUpdate: ((String) -> Void)?
     var savePathUpdate: ((URL) -> Void)?
     
@@ -80,11 +83,36 @@ class ScreenRecorder {
         }
     }
     
+    func pauseRecording() {
+            guard isRecording && !isPaused else {
+                statusUpdate?("录制未开始或已暂停。")
+                return
+            }
+            
+            isPaused = true
+            statusUpdate?("录制已暂停。")
+        }
+
+        func resumeRecording() {
+            guard isRecording && isPaused else {
+                statusUpdate?("录制未暂停或未开始。")
+                return
+            }
+            
+            isPaused = false
+            statusUpdate?("录制已恢复。")
+        }
+    
     private func handleSampleBuffer(_ sampleBuffer: CMSampleBuffer) {
         guard CMSampleBufferGetPresentationTimeStamp(sampleBuffer).isValid,
               let videoInput = videoInput, videoInput.isReadyForMoreMediaData else {
             return
         }
+        
+        // 如果录制暂停，跳过写入
+                if isPaused {
+                    return
+                }
         
         if !sessionStarted {
             assetWriter?.startSession(atSourceTime: CMSampleBufferGetPresentationTimeStamp(sampleBuffer))

@@ -21,18 +21,38 @@ class ViewController: UIViewController {
     
     var passedTraceCoordIndex: Int = 0
     var distanceArray = [Double]()
+    var totalDistanceArray = [Double]()
     var sumDistance: Double = 0.0
     
     weak var car1View: MAAnnotationView?
     
     var btn: UIButton!
     var isPlay = false
+//    var kmLabel = UILabel()
+    lazy var kmLabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = .boldSystemFont(ofSize: 20)
+        label.frame = CGRect(x: 10, y: 160, width: 180, height: 40)
+        return label
+    }()
     
     let music = "http://music.163.com/song/media/outer/url?id=1817576399.mp3"
     
     let recorder = ScreenRecorder()
+    
+    @objc private func back() {
+        recorder.pauseRecording()
+    }
+    @objc private func active() {
+        recorder.resumeRecording()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(back), name: NSNotification.Name(rawValue: "back"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(back), name: NSNotification.Name(rawValue: "active"), object: nil)
+        
         initData()
         initMapView()
         btn = UIButton(frame: CGRect(x: 10, y: 100, width: 80, height: 40))
@@ -41,6 +61,8 @@ class ViewController: UIViewController {
         btn.setTitle("调试", for: .normal)
         btn.setTitleColor(.black, for: .normal)
         btn.addTarget(self, action: #selector(debug), for: .touchUpInside)
+        view.addSubview(kmLabel)
+        
         
 //        playAudio()
         recorder.statusUpdate = { status in
@@ -139,6 +161,7 @@ extension ViewController {
             let end = CLLocation(latitude: s_coords[i + 1].latitude, longitude: s_coords[i + 1].longitude)
             let distance: CLLocationDistance = end.distance(from: begin)
             arr.append(Double(distance))
+            totalDistanceArray.append(Double(distance + sum))
             sum += distance
         }
         
@@ -223,6 +246,11 @@ extension ViewController {
             let tempDuration = num / speed_car2
             self.car1.addMoveAnimation(withKeyCoordinates: &(s_coords[i]), count: 1, withDuration: CGFloat(tempDuration), withName: nil, completeCallback: {(_ isFinished: Bool) -> Void in
                 weakSelf?.passedTraceCoordIndex = i
+//                print("计算距离")
+                UIView.animate(withDuration: 0.35) {
+                    self.kmLabel.text = "\(Int(self.totalDistanceArray[i-1])) m"
+                }
+                
             })
         }
         
